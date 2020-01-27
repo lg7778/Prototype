@@ -1,0 +1,7 @@
+C:\Users\Lena\source\Prototype\Pirate Board Game\Pirate Board Game\bin\Debug\Pirate Board Game.exe.config
+C:\Users\Lena\source\Prototype\Pirate Board Game\Pirate Board Game\bin\Debug\Pirate Board Game.exe
+C:\Users\Lena\source\Prototype\Pirate Board Game\Pirate Board Game\bin\Debug\Pirate Board Game.pdb
+C:\Users\Lena\source\Prototype\Pirate Board Game\Pirate Board Game\obj\Debug\Pirate Board Game.csprojAssemblyReference.cache
+C:\Users\Lena\source\Prototype\Pirate Board Game\Pirate Board Game\obj\Debug\Pirate Board Game.csproj.CoreCompileInputs.cache
+C:\Users\Lena\source\Prototype\Pirate Board Game\Pirate Board Game\obj\Debug\Pirate Board Game.exe
+C:\Users\Lena\source\Prototype\Pirate Board Game\Pirate Board Game\obj\Debug\Pirate Board Game.pdb
