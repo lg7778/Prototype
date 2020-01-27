@@ -155,18 +155,20 @@ namespace Jam2
         //When there are multiple candidate for the king, this method is called to select a king from all the candidates
         public Player SelectKing(List<Player> candidates)
         {
-            //return candidates[0];
-
+            List<Player> currentCandidates = candidates; //List of player that are still candidates of king
             bool done = false; //Indicate whether the selection process is completed
-            while(!done)
+            Player kingPlayer = currentCandidates[0]; //default value for king
+
+            while (!done)
             {
-                //A temp list that store cards used in comparison
-                List<TreasureCard> tempCards =  new List<TreasureCard>();
+                List<TreasureCard> tempCards =  new List<TreasureCard>();//A temp list that store cards used in comparison
                 TreasureCard highCard; //Treasure card with highest value in comparison
-                bool isDraw; //Whether the comparison is draw and need another round of comparison
+                int highIndex = 0; //index for the high card
+                bool isDraw =  false; //Whether the comparison is draw and need another round of comparison
+                List<Player> newCandidates = new List<Player>(); //List of new candidates if a draw occured
 
                 //Draw a treasure card for each player
-                for(int i = 0; i < candidates.Count; i++)
+                for(int i = 0; i < currentCandidates.Count; i++)
                 {
                     //Add card to temp list
                     tempCards.Add(treasureDeck.Cards[0]);
@@ -184,12 +186,44 @@ namespace Jam2
                     if(tempCards[i].Score > highCard.Score)
                     {
                         highCard = tempCards[i];
+                        highIndex = i;
                     }
                 }
 
+                //Add the player that ownes the high card into the new candidates list
+                newCandidates.Add(currentCandidates[highIndex]);
+                
                 //determine whether there are cards with value equal to high card
-                for()
+                for(int i = 0; i < tempCards.Count; i++)
+                {
+                    //if a player with card value equal to high value card is found, add this players to new round of comparison
+                    if (i != highIndex)
+                    {
+                        if (tempCards[i].Score == highCard.Score)
+                        {
+                            newCandidates.Add(currentCandidates[i]);
+                            isDraw = true;
+                        }
+                    }
+                }
+
+                //If a draw occurs, continue with the new candidate list, otherwise a king is selected
+                if(isDraw)
+                {
+                    currentCandidates = newCandidates;
+                    continue;
+                }
+                else
+                {
+                    //Player with high card become king
+                    kingPlayer = newCandidates[highIndex];
+                    //exit loop since king is found
+                    break;
+                }
             }
+
+            //return the player that holdes the high card
+            return kingPlayer;
         }
 
         //The draw phase of each round, each player draw 1 card from the treasure deck and 1 card from the action deck
