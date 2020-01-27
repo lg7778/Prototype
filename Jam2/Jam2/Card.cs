@@ -94,7 +94,7 @@ namespace Jam2
         //constructor
         public ActionCard(string cardName, int cardValue) : base(cardName)
         {
-            Type = 1;
+            this.Type = 1;
             score = cardValue;
         }
     }
@@ -104,7 +104,16 @@ namespace Jam2
         //constructor
         public EventCard(string cardName) : base(cardName)
         {
-            Type = 2;
+            this.Type = 2;
+        }
+    }
+
+    class KingCard : Card //the King card
+    {
+        //constructor
+        public KingCard(string cardName) : base(cardName)
+        {
+            this.Type = 3;
         }
     }
 }

@@ -36,27 +36,53 @@ namespace Jam2
             TreasureAbandon, //value = 3, abandoned cards from treasure deck
             ActionAbandon, //value = 4, abandoned cards from action deck
             EventAbandon, //value = 5, abandoned cards from event deck
-            King //the king card
         }
 
         List<Player> players = new List<Player>(); //A list that holds all the players in the game
         Player currentPlayer; //The player that is currently in play
 
-        Deck treasureDeck; //Deck that holds all avaliable treasure cards
-        Deck tAbondanedDeck; //Deck that holds all the treasure cards that has been abandoned
+        TreasureDeck treasureDeck; //Deck that holds all avaliable treasure cards
+        TreasureDeck tAbondanedDeck; //Deck that holds all the treasure cards that has been abandoned
 
-        Deck actionDeck; //Deck that holds all avaliable action cards
-        Deck aAbondanedDeck; //Deck that holds all the action cards that has been abandoned
+        ActionDeck actionDeck; //Deck that holds all avaliable action cards
+        ActionDeck aAbondanedDeck; //Deck that holds all the action cards that has been abandoned
 
-        Deck eventDeck; //Deck that holds all avaliable event cards
-        Deck eAbondanedDeck; //Deck that holds all the event cards that has been abandoned
+        EventDeck eventDeck; //Deck that holds all avaliable event cards
+        EventDeck eAbondanedDeck; //Deck that holds all the event cards that has been abandoned
+
+        //The one and only king card
+        Card kingCard = new Card("King");
+
+        //Create singleton
+        private static System theSystem = new System();
 
         //Hold the main game loop
         static void Main(string[] args)
         {
-            
+            //Initialize all the variables
+
+            //Default to be 4 player-game, change that to due to input player number
+            theSystem.AddPlayer(new Player("PlayerOne"));
+            theSystem.AddPlayer(new Player("PlayerTwo"));
+            theSystem.AddPlayer(new Player("PlayerThree"));
+            theSystem.AddPlayer(new Player("PlayerFour"));
+
+            //Set start player to be the first player added
+            theSystem.currentPlayer = theSystem.players[0];
+
+            //Initialize decks
+            theSystem.treasureDeck = new TreasureDeck(0);
+            theSystem.actionDeck = new ActionDeck(1);
+            theSystem.eventDeck = new EventDeck(2);
+            theSystem.tAbondanedDeck = new TreasureDeck(3);
+            theSystem.aAbondanedDeck = new ActionDeck(4);
+            theSystem.eAbondanedDeck = new EventDeck(5);
         }
 
+        public void AddPlayer(Player newPlayer)
+        {
+            players.Add(newPlayer);
+        }
         //Method for the setup phase, during this phase, a new king has been selected based on total displayed value, and the order of player list is changed to start with king and go clockwise
         public void SetUpPhase()
         {
@@ -129,18 +155,41 @@ namespace Jam2
         //When there are multiple candidate for the king, this method is called to select a king from all the candidates
         public Player SelectKing(List<Player> candidates)
         {
-            //A temporary solution, will write later
-            return candidates[0];
-            //bool done = false; //Indicate whether the selection process is completed
-            //while(!done)
-            //{
-                //List<Card> tempCards;
+            //return candidates[0];
+
+            bool done = false; //Indicate whether the selection process is completed
+            while(!done)
+            {
+                //A temp list that store cards used in comparison
+                List<TreasureCard> tempCards =  new List<TreasureCard>();
+                TreasureCard highCard; //Treasure card with highest value in comparison
+                bool isDraw; //Whether the comparison is draw and need another round of comparison
+
                 //Draw a treasure card for each player
-                //for(int i = 0; i < candidates.Count; i++)
-                //{
-                    
-                //}
-            //}
+                for(int i = 0; i < candidates.Count; i++)
+                {
+                    //Add card to temp list
+                    tempCards.Add(treasureDeck.Cards[0]);
+                    //Add card to abandoned treasure deck
+                    tAbondanedDeck.AddCard(treasureDeck.Cards[0]);
+                    //Remove card from treasure deck
+                    treasureDeck.RemoveCard(0);
+                }
+
+                highCard = tempCards[0]; //set current highest to first card
+                //find the treasure card that has the largest value
+                for(int i = 0; i < tempCards.Count; i++)
+                {
+                    //if a higher card is found, replace high card
+                    if(tempCards[i].Score > highCard.Score)
+                    {
+                        highCard = tempCards[i];
+                    }
+                }
+
+                //determine whether there are cards with value equal to high card
+                for()
+            }
         }
 
         //The draw phase of each round, each player draw 1 card from the treasure deck and 1 card from the action deck
