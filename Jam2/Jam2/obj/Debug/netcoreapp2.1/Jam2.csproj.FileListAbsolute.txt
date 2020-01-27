@@ -1,0 +1,11 @@
+C:\Users\Lena\source\Prototype\Jam2\Jam2\bin\Debug\netcoreapp2.1\Jam2.deps.json
+C:\Users\Lena\source\Prototype\Jam2\Jam2\bin\Debug\netcoreapp2.1\Jam2.runtimeconfig.json
+C:\Users\Lena\source\Prototype\Jam2\Jam2\bin\Debug\netcoreapp2.1\Jam2.runtimeconfig.dev.json
+C:\Users\Lena\source\Prototype\Jam2\Jam2\bin\Debug\netcoreapp2.1\Jam2.dll
+C:\Users\Lena\source\Prototype\Jam2\Jam2\bin\Debug\netcoreapp2.1\Jam2.pdb
+C:\Users\Lena\source\Prototype\Jam2\Jam2\obj\Debug\netcoreapp2.1\Jam2.csprojAssemblyReference.cache
+C:\Users\Lena\source\Prototype\Jam2\Jam2\obj\Debug\netcoreapp2.1\Jam2.csproj.CoreCompileInputs.cache
+C:\Users\Lena\source\Prototype\Jam2\Jam2\obj\Debug\netcoreapp2.1\Jam2.AssemblyInfoInputs.cache
+C:\Users\Lena\source\Prototype\Jam2\Jam2\obj\Debug\netcoreapp2.1\Jam2.AssemblyInfo.cs
+C:\Users\Lena\source\Prototype\Jam2\Jam2\obj\Debug\netcoreapp2.1\Jam2.dll
+C:\Users\Lena\source\Prototype\Jam2\Jam2\obj\Debug\netcoreapp2.1\Jam2.pdb

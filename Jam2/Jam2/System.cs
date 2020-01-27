@@ -105,7 +105,7 @@ namespace Jam2
             for(int i = 0; i < players.Count; i++)
             {  
                 //When find a player with higher displayed value, set this player to be new king
-                if(players[i].DisplayedValue > king.DisplayedValue)
+                if(players[i].DisplayedScore > king.DisplayedScore)
                 {
                     king = players[i];
                 }
@@ -115,7 +115,7 @@ namespace Jam2
             for(int i = 0; i < players.Count; i++)
             {
                 //When find player with same displayed value as king, set multipleKing to true and add that player to candidate list for the king
-                if(players[i].DisplayedValue == king.DisplayedValue)
+                if(players[i].DisplayedScore == king.DisplayedScore)
                 {
                     multipleKing = true;
                     kings.Add(players[i]);
@@ -229,11 +229,22 @@ namespace Jam2
         //The draw phase of each round, each player draw 1 card from the treasure deck and 1 card from the action deck
         public void DrawPhase() 
         {
-            //Draw treasure cards for each player
+            //Draw 1 treasure card and 1 event card for each player
             for(int i = 0; i < players.Count; i++)
             {
-                //Add the top card on treasure deck to player hand
-                //players[i]
+                //Add the top card from treasure deck to player hand
+                players[i].AddToHand(treasureDeck.Cards[0]);
+                //Add the card to abandoned deck
+                tAbondanedDeck.AddCard(treasureDeck.Cards[0]);
+                //Remove the card from treasure deck
+                treasureDeck.RemoveCard(0);
+
+                //Add the top card from action deck to player hand
+                players[i].AddToAction(actionDeck.Cards[0]);
+                //Add the card to abandoned deck
+                aAbondanedDeck.AddCard(actionDeck.Cards[0]);
+                //Remove the card from action deck
+                actionDeck.RemoveCard(0);
             }
         }
 
@@ -252,11 +263,217 @@ namespace Jam2
         //The give phase of each round, each player gives a card to another player
         public void Give()
         {
+            string input;
             //Set the Given attribute of each player to be false
             for(int i = 0; i < players.Count; i++)
             {
                 players[i].Given = false;
             }
+
+            //Set current player to be the first player
+            currentPlayer = players[0];
+
+            for(int i = 0; i < players.Count; i++)
+            {
+                bool cardFound = false; //whether a card to give is found
+                bool playerFound = false; //whether a player to give is found
+                TreasureCard theCard = currentPlayer.Displayed[0]; //the card that is selected by the player
+                Player target = currentPlayer; //the target player
+                Player left; //player to the left
+                Player right; //player to the right
+                Player opposite; //player to the opposite direction
+
+                //find left player
+                //when current player is last player
+                if (i == 3)
+                {
+                    left = players[0];
+                }
+                //get left player
+                else
+                {
+                    left = players[i + 1];
+                }
+
+                //find right player
+                //when current player is first player
+                if (i == 0)
+                {
+                    right = players[3];
+                }
+                //get right player
+                else
+                {
+                    right = players[i - 1];
+                }
+
+                //find opposite player
+                //when current player is first 2 player
+                if (i < 2)
+                {
+                    opposite = players[i + 2];
+                }
+                //when current player is last 2 players
+                else
+                {
+                    opposite = players[i - 2];
+                }
+
+                //Set current player
+                currentPlayer = players[i];
+
+                //Display opponent information
+                //Write left player displayed cards
+                Console.WriteLine("The player on your left have displayed cards as following : ");
+                for(int j = 0; j < left.Displayed.Count; j++)
+                {
+                    Console.WriteLine(left.Displayed[j]);
+                }
+
+                //Write right player displayed cards
+                Console.WriteLine("The player on your right have displayed cards as following : ");
+                for (int j = 0; j < right.Displayed.Count; j++)
+                {
+                    Console.WriteLine(right.Displayed[j]);
+                }
+
+                //Write opposite player displayed cards
+                Console.WriteLine("The player on your opposite have displayed cards as following : ");
+                for (int j = 0; j < opposite.Displayed.Count; j++)
+                {
+                    Console.WriteLine(opposite.Displayed[j]);
+                }
+
+                //Display current player information
+                //Write player ID
+                Console.WriteLine("Your Player Id is : " + currentPlayer.PlayerID);
+                //Write player displayed cards
+                Console.WriteLine("Your displayed cards are : " + "\r\n");
+                for(int j = 0; j < currentPlayer.Displayed.Count; j++)
+                {
+                    Console.WriteLine(currentPlayer.Displayed[j].Name);
+                }
+                
+                //Write player hand cards
+                Console.WriteLine("Cards in your hands are : " + "\r\n");
+                for (int j = 0; j < currentPlayer.Hand.Count; j++)
+                {
+                    Console.WriteLine(currentPlayer.Hand[j].Name);
+                }
+
+                //look for card to give
+                while(!cardFound)
+                {
+                    //Let player select card to give
+                    Console.WriteLine("Which card do you want to give?" + "\r\n"
+                        + "1. Card from my displayed cards" + "\r\n"
+                        + "2. Card from my hand"
+                        );
+                    //Get answer from player
+                    input =  Console.ReadLine();
+                    //Ask which specific card to give
+                    if (input == "1")
+                    {
+                        //Let player choose card in displayed cards
+                        Console.WriteLine("Which card do you want to give?");
+                        //Get answer from player
+                        string temp = Console.ReadLine();
+                        //find card with name correspond to user input
+                        for (int j = 0; j < currentPlayer.Displayed.Count; j++)
+                        {
+                            if (currentPlayer.Displayed[j].Name.Equals(temp))
+                            {
+                                cardFound = true;
+                                theCard = currentPlayer.Displayed[j];
+                            }
+                        }
+                        //if such a card exist, exit the loop
+                        if (cardFound == true)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Your selection is invalid, please try again");
+                            continue;
+                        }
+                    }
+                    else if(input == "2")
+                    {
+                        //Let player choose card in hand
+                        Console.WriteLine("Which card do you want to give?");
+                        //Get answer from player
+                        string temp = Console.ReadLine();
+                        //find card with name correspond to user input
+                        for (int j = 0; j < currentPlayer.Hand.Count; j++)
+                        {
+                            if (currentPlayer.Hand[j].Name.Equals(temp))
+                            {
+                                cardFound = true;
+                                theCard = currentPlayer.Hand[j];
+                            }
+                        }
+                        //if such a card exist, exit the loop
+                        if (cardFound == true)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Your selection is invalid, please try again");
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Your selection is invalid, please try again");
+                        continue;
+                    }
+                }
+
+                //look for target player
+                while(!playerFound)
+                {
+                    //let player select target to give
+                    Console.WriteLine("Which player do you want to give this card?" + "\r\n"
+                        + "1. Player to the left" + "\r\n"
+                        + "2. Player to the right" + "\r\n"
+                        + "3. Player to the opposite"
+                        );
+                    //get player answer
+                    input = Console.ReadLine();
+                    if(input == "1")
+                    {
+                        //get left player
+                        target = left;
+                        break;
+                    }
+                    else if(input == "2")
+                    {
+                        //get right player
+                        target = right;
+                        break;
+                    }
+                    else if(input == "3")
+                    {
+                        //get opposite player
+                        target = opposite;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Your selection is invalid, please try again");
+                        continue;
+                    }
+                }
+                    GiveCardTo(theCard, target);
+            }
+        }
+
+        //Give a card from hand to the target player
+        public void GiveCardTo(Card theCard, Player target)
+        {
+
         }
 
     }
