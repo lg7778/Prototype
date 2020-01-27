@@ -51,9 +51,30 @@ namespace Jam2
         }
 
         //Shuffle the deck to be in random order
-        public void shuffle()
+        public void Shuffle()
         {
+            //Copy the current deck
+            List<TreasureCard> oldDeck = cards;
+            //Prepare new deck
+            List<TreasureCard> newDeck = new List<TreasureCard>();
+            //Prepare a random number
+            Random rnd = new Random();
 
+            //Add each card from old deck to random place in new deck
+            while(oldDeck.Count != 0)
+            {
+                if(newDeck.Count == 0)
+                {
+                    newDeck.Add(oldDeck[0]);
+                    oldDeck.RemoveAt(0);
+                }
+                else
+                {
+                    newDeck.Insert(rnd.Next(0, newDeck.Count), oldDeck[0]);
+                    oldDeck.RemoveAt(0);
+                }
+            }
+            cards = newDeck;
         }
 
     }
@@ -105,9 +126,30 @@ namespace Jam2
         }
 
         //Shuffle the deck to be in random order
-        public void shuffle()
+        public void Shuffle()
         {
+            //Copy the current deck
+            List<EventCard> oldDeck = cards;
+            //Prepare new deck
+            List<EventCard> newDeck = new List<EventCard>();
+            //Prepare a random number
+            Random rnd = new Random();
 
+            //Add each card from old deck to random place in new deck
+            while (oldDeck.Count != 0)
+            {
+                if (newDeck.Count == 0)
+                {
+                    newDeck.Add(oldDeck[0]);
+                    oldDeck.RemoveAt(0);
+                }
+                else
+                {
+                    newDeck.Insert(rnd.Next(0, newDeck.Count), oldDeck[0]);
+                    oldDeck.RemoveAt(0);
+                }
+            }
+            cards = newDeck;
         }
 
     }
@@ -159,9 +201,30 @@ namespace Jam2
         }
 
         //Shuffle the deck to be in random order
-        public void shuffle()
+        public void Shuffle()
         {
+            //Copy the current deck
+            List<ActionCard> oldDeck = cards;
+            //Prepare new deck
+            List<ActionCard> newDeck = new List<ActionCard>();
+            //Prepare a random number
+            Random rnd = new Random();
 
+            //Add each card from old deck to random place in new deck
+            while (oldDeck.Count != 0)
+            {
+                if (newDeck.Count == 0)
+                {
+                    newDeck.Add(oldDeck[0]);
+                    oldDeck.RemoveAt(0);
+                }
+                else
+                {
+                    newDeck.Insert(rnd.Next(0, newDeck.Count), oldDeck[0]);
+                    oldDeck.RemoveAt(0);
+                }
+            }
+            cards = newDeck;
         }
 
     }

@@ -149,6 +149,8 @@ namespace Jam2
         {
             //Add the card to displayed list
             displayed.Add(hand[index]);
+            //flip the card
+            displayed[displayed.Count - 1].FaceUp =  true;
             //Remove card from hand list
             hand.RemoveAt(index);
         }
@@ -156,6 +158,7 @@ namespace Jam2
         //Add a card to a player's displayed card directly
         public void AddToDisplayed(TreasureCard newCard)
         {
+            newCard.FaceUp = true;
             displayed.Add(newCard);
         }
 

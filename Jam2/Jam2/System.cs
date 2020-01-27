@@ -77,8 +77,172 @@ namespace Jam2
             theSystem.tAbondanedDeck = new TreasureDeck(3);
             theSystem.aAbondanedDeck = new ActionDeck(4);
             theSystem.eAbondanedDeck = new EventDeck(5);
+
+            //Add treasure cards
+            theSystem.treasureDeck.AddCard(new TreasureCard("Coin", 1));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Coin", 1));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Coin", 1));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Coin", 1));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Coin", 1));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Coin", 1));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Coin", 1));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Coin", 1));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Coin", 1));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Coin", 1));
+
+            theSystem.treasureDeck.AddCard(new TreasureCard("Gem", 5));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Gem", 5));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Gem", 5));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Gem", 5));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Gem", 5));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Gem", 5));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Gem", 5));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Gem", 5));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Gem", 5));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Gem", 5));
+
+            theSystem.treasureDeck.AddCard(new TreasureCard("Relic", 10));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Relic", 10));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Relic", 10));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Relic", 10));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Relic", 10));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Relic", 10));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Relic", 10));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Relic", 10));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Relic", 10));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Relic", 10));
+
+            theSystem.treasureDeck.AddCard(new TreasureCard("Chest", 20));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Chest", 20));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Chest", 20));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Chest", 20));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Chest", 20));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Chest", 20));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Chest", 20));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Chest", 20));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Chest", 20));
+            theSystem.treasureDeck.AddCard(new TreasureCard("Chest", 20));
+
+            //Add action cards
+            theSystem.actionDeck.AddCard(new ActionCard("Draw 1 card from the treasure deck(+5)", 5));
+            theSystem.actionDeck.AddCard(new ActionCard("Draw 1 card from the treasure deck(+5)", 5));
+            theSystem.actionDeck.AddCard(new ActionCard("Draw 1 card from the treasure deck(+5)", 5));
+            theSystem.actionDeck.AddCard(new ActionCard("Draw 1 card from the treasure deck(+5)", 5));
+            theSystem.actionDeck.AddCard(new ActionCard("Draw 1 card from the treasure deck(+5)", 5));
+            theSystem.actionDeck.AddCard(new ActionCard("Draw 1 card from the treasure deck(+5)", 5));
+            theSystem.actionDeck.AddCard(new ActionCard("Draw 1 card from the treasure deck(+5)", 5));
+            theSystem.actionDeck.AddCard(new ActionCard("Draw 1 card from the treasure deck(+5)", 5));
+            theSystem.actionDeck.AddCard(new ActionCard("Draw 1 card from the treasure deck(+5)", 5));
+            theSystem.actionDeck.AddCard(new ActionCard("Draw 1 card from the treasure deck(+5)", 5));
+            theSystem.actionDeck.AddCard(new ActionCard("Draw 1 card from the treasure deck(+5)", 5));
+
+
+            theSystem.treasureDeck.Shuffle();
+
+            theSystem.Initialize();
+
+            foreach (Player player in theSystem.players)
+            {
+
+                Console.WriteLine("You are " + player.PlayerID + "\r\n" +
+                    "You currently have : ");
+                for (int i = 0; i < player.Hand.Count; i++)
+                {
+                    Console.WriteLine(player.Hand[i].Name);
+                }
+
+                bool found = false;
+                int index = 0;
+                while(!found)
+                {
+                    player.UpdateScore();
+                    string input;
+                    Console.WriteLine("You current score is : " + player.HandScore);
+                    Console.WriteLine("Which card do you want to display?");
+                    input = Console.ReadLine();
+                    for(int i = 0; i < player.Hand.Count; i++)
+                    {
+                        if (player.Hand[i].Name.Equals(input))
+                        {
+                            found = true;
+                            index = i;
+                            break;
+                        }
+                    }
+                }
+
+                player.AddToDisplayedFromHand(index);
+                player.UpdateScore();
+                Console.WriteLine("You are done with your turn, please give seat for next player" + "\r\n" +
+                    "Press Any Key to Continue");
+                Console.ReadLine();
+                Console.Clear();
+            }
+
+            foreach (Player player in theSystem.players)
+            {
+                Console.WriteLine(player.PlayerID + " displayed : ");
+                foreach(TreasureCard card in player.Displayed)
+                {
+                    Console.WriteLine(card.Name);
+                }
+            }
+
+            for(int i = 0; i < 3; i++)
+            {
+                int round = i + 1;
+                Console.WriteLine("\r\n" + "It is now round " + round);
+                foreach(Player player in theSystem.players)
+                {
+                    player.UpdateScore();
+                    Console.WriteLine("\r\n" + player.PlayerID + " currently displayed : ");
+                    foreach(TreasureCard card in player.Hand)
+                    {
+                        Console.WriteLine(card.Name);
+                    }
+                    Console.WriteLine("The displayed score for " + player.PlayerID + " is " + player.DisplayedScore);
+                }
+                theSystem.SetUpPhase();
+                theSystem.DrawPhase();
+                theSystem.GivePhase();
+            }
+
+            Console.WriteLine("\r\n" + "It is now the end of game");
+            foreach(Player player in theSystem.players)
+            {
+                player.UpdateScore();
+                Console.WriteLine(player.PlayerID + " have a total score of " + player.TotalScore);
+            }
+
         }
 
+        public void Initialize()
+        {
+            //Draw 2 treasure card and 1 action card for each player
+            for (int i = 0; i < players.Count; i++)
+            {
+                //Add the top card from treasure deck to player hand
+                players[i].AddToHand(treasureDeck.Cards[0]);
+                //Add the card to abandoned deck
+                tAbondanedDeck.AddCard(treasureDeck.Cards[0]);
+                //Remove the card from treasure deck
+                treasureDeck.RemoveCard(0);
+
+                //Add the top card from treasure deck to player hand
+                players[i].AddToHand(treasureDeck.Cards[0]);
+                //Add the card to abandoned deck
+                tAbondanedDeck.AddCard(treasureDeck.Cards[0]);
+                //Remove the card from treasure deck
+                treasureDeck.RemoveCard(0);
+
+                //Add the top card from action deck to player hand
+                //players[i].AddToAction(actionDeck.Cards[0]);
+                //Add the card to abandoned deck
+                //aAbondanedDeck.AddCard(actionDeck.Cards[0]);
+                //Remove the card from action deck
+                //actionDeck.RemoveCard(0);
+            }
+        }
         public void AddPlayer(Player newPlayer)
         {
             players.Add(newPlayer);
@@ -102,20 +266,20 @@ namespace Jam2
             }
 
             //Compare each player at play with the current king, update the king if find a player with higher displayed value
-            for(int i = 0; i < players.Count; i++)
-            {  
+            for (int i = 0; i < players.Count; i++)
+            {
                 //When find a player with higher displayed value, set this player to be new king
-                if(players[i].DisplayedScore > king.DisplayedScore)
+                if (players[i].DisplayedScore > king.DisplayedScore)
                 {
                     king = players[i];
                 }
             }
 
             //See if there are multiple player with the same displayed value
-            for(int i = 0; i < players.Count; i++)
+            for (int i = 0; i < players.Count; i++)
             {
                 //When find player with same displayed value as king, set multipleKing to true and add that player to candidate list for the king
-                if(players[i].DisplayedScore == king.DisplayedScore)
+                if (players[i].DisplayedScore == king.DisplayedScore)
                 {
                     multipleKing = true;
                     kings.Add(players[i]);
@@ -123,7 +287,7 @@ namespace Jam2
             }
 
             //If there are multiple candidate for the king, use the tie-rule to resolve
-            if(multipleKing == true)
+            if (multipleKing == true)
             {
                 king = SelectKing(kings);
             }
@@ -132,7 +296,7 @@ namespace Jam2
             for (int i = 0; i < players.Count; i++)
             {
                 //When the king player is found, change it's isKing value to true
-                if(king.PlayerID.Equals(players[i].PlayerID))
+                if (king.PlayerID.Equals(players[i].PlayerID))
                 {
                     players[i].IsKing = true;
                     kingIndex = i;
@@ -149,7 +313,12 @@ namespace Jam2
             }
 
             //Remove duplicated players in the list that is currently in front of the king
-            players = players.GetRange(kingIndex, players.Count-kingIndex);
+            players = players.GetRange(kingIndex, players.Count - kingIndex);
+            Console.WriteLine("\r\n" + players[0].PlayerID + " is King for the round");
+            Console.WriteLine(players[0].PlayerID + " please have a seat, it's now your turn");
+            Console.WriteLine("Press Any Key to Continue");
+            Console.ReadLine();
+            Console.Clear();
         }
 
         //When there are multiple candidate for the king, this method is called to select a king from all the candidates
@@ -216,7 +385,7 @@ namespace Jam2
                 else
                 {
                     //Player with high card become king
-                    kingPlayer = newCandidates[highIndex];
+                    kingPlayer = currentCandidates[highIndex];
                     //exit loop since king is found
                     break;
                 }
@@ -229,7 +398,7 @@ namespace Jam2
         //The draw phase of each round, each player draw 1 card from the treasure deck and 1 card from the action deck
         public void DrawPhase() 
         {
-            //Draw 1 treasure card and 1 event card for each player
+            //Draw 1 treasure card and 1 action card for each player
             for(int i = 0; i < players.Count; i++)
             {
                 //Add the top card from treasure deck to player hand
@@ -240,11 +409,11 @@ namespace Jam2
                 treasureDeck.RemoveCard(0);
 
                 //Add the top card from action deck to player hand
-                players[i].AddToAction(actionDeck.Cards[0]);
+                //players[i].AddToAction(actionDeck.Cards[0]);
                 //Add the card to abandoned deck
-                aAbondanedDeck.AddCard(actionDeck.Cards[0]);
+                //aAbondanedDeck.AddCard(actionDeck.Cards[0]);
                 //Remove the card from action deck
-                actionDeck.RemoveCard(0);
+                //actionDeck.RemoveCard(0);
             }
         }
 
@@ -261,7 +430,7 @@ namespace Jam2
         }
 
         //The give phase of each round, each player gives a card to another player
-        public void Give()
+        public void GivePhase()
         {
             string input;
             //Set the Given attribute of each player to be false
@@ -271,101 +440,111 @@ namespace Jam2
             }
 
             //Set current player to be the first player
-            currentPlayer = players[0];
+            //currentPlayer = players[0];
 
             for(int i = 0; i < players.Count; i++)
             {
                 bool cardFound = false; //whether a card to give is found
                 bool playerFound = false; //whether a player to give is found
                 TreasureCard theCard = currentPlayer.Displayed[0]; //the card that is selected by the player
-                Player target = currentPlayer; //the target player
-                Player left; //player to the left
-                Player right; //player to the right
-                Player opposite; //player to the opposite direction
+                int target = 0; //the target player
+                int left; //player to the left
+                int right; //player to the right
+                int opposite; //player to the opposite direction
 
+                foreach(Player player in players)
+                {
+                    player.UpdateScore();
+                }
+                
                 //find left player
                 //when current player is last player
                 if (i == 3)
                 {
-                    left = players[0];
+                    left = 0;
                 }
                 //get left player
                 else
                 {
-                    left = players[i + 1];
+                    left = i + 1;
                 }
 
                 //find right player
                 //when current player is first player
                 if (i == 0)
                 {
-                    right = players[3];
+                    right = 3;
                 }
                 //get right player
                 else
                 {
-                    right = players[i - 1];
+                    right = i - 1;
                 }
 
                 //find opposite player
                 //when current player is first 2 player
                 if (i < 2)
                 {
-                    opposite = players[i + 2];
+                    opposite = i + 2;
                 }
                 //when current player is last 2 players
                 else
                 {
-                    opposite = players[i - 2];
+                    opposite = i - 2;
                 }
 
                 //Set current player
-                currentPlayer = players[i];
+                //currentPlayer = players[i];
 
                 //Display opponent information
                 //Write left player displayed cards
-                Console.WriteLine("The player on your left have displayed cards as following : ");
-                for(int j = 0; j < left.Displayed.Count; j++)
+                Console.WriteLine("\r\n" + "The player on your left is : " + players[left].PlayerID + "\r\n" +
+                    "This player have displayed cards as following : ");
+                for(int j = 0; j < players[left].Displayed.Count; j++)
                 {
-                    Console.WriteLine(left.Displayed[j]);
+                    Console.WriteLine(players[left].Displayed[j].Name);
                 }
 
                 //Write right player displayed cards
-                Console.WriteLine("The player on your right have displayed cards as following : ");
-                for (int j = 0; j < right.Displayed.Count; j++)
+                Console.WriteLine("\r\n" + "The player on your right is : " + players[right].PlayerID + "\r\n" +
+                    "This player have displayed cards as following : ");
+                for (int j = 0; j < players[right].Displayed.Count; j++)
                 {
-                    Console.WriteLine(right.Displayed[j]);
+                    Console.WriteLine(players[right].Displayed[j].Name);
                 }
 
                 //Write opposite player displayed cards
-                Console.WriteLine("The player on your opposite have displayed cards as following : ");
-                for (int j = 0; j < opposite.Displayed.Count; j++)
+                Console.WriteLine("\r\n" + "The player on your opposite is : " + players[opposite].PlayerID + "\r\n" +
+                    "This player have displayed cards as following : ");
+                for (int j = 0; j < players[opposite].Displayed.Count; j++)
                 {
-                    Console.WriteLine(opposite.Displayed[j]);
+                    Console.WriteLine(players[opposite].Displayed[j].Name);
                 }
 
                 //Display current player information
                 //Write player ID
-                Console.WriteLine("Your Player Id is : " + currentPlayer.PlayerID);
+                Console.WriteLine("\r\n" + "Your Player Id is : " + players[i].PlayerID);
                 //Write player displayed cards
-                Console.WriteLine("Your displayed cards are : " + "\r\n");
-                for(int j = 0; j < currentPlayer.Displayed.Count; j++)
+                Console.WriteLine("Your displayed cards are : ");
+                for(int j = 0; j < players[i].Displayed.Count; j++)
                 {
-                    Console.WriteLine(currentPlayer.Displayed[j].Name);
+                    Console.WriteLine(players[i].Displayed[j].Name);
                 }
                 
                 //Write player hand cards
-                Console.WriteLine("Cards in your hands are : " + "\r\n");
-                for (int j = 0; j < currentPlayer.Hand.Count; j++)
+                Console.WriteLine("Cards in your hands are : " );
+                for (int j = 0; j < players[i].Hand.Count; j++)
                 {
-                    Console.WriteLine(currentPlayer.Hand[j].Name);
+                    Console.WriteLine(players[i].Hand[j].Name);
                 }
+
+                Console.WriteLine("Your current score is : " + players[i].TotalScore);
 
                 //look for card to give
                 while(!cardFound)
                 {
                     //Let player select card to give
-                    Console.WriteLine("Which card do you want to give?" + "\r\n"
+                    Console.WriteLine("\r\n" + "Which card do you want to give?" + "\r\n"
                         + "1. Card from my displayed cards" + "\r\n"
                         + "2. Card from my hand"
                         );
@@ -375,16 +554,17 @@ namespace Jam2
                     if (input == "1")
                     {
                         //Let player choose card in displayed cards
-                        Console.WriteLine("Which card do you want to give?");
+                        Console.WriteLine("\r\n" + "Which card do you want to give?");
                         //Get answer from player
                         string temp = Console.ReadLine();
                         //find card with name correspond to user input
-                        for (int j = 0; j < currentPlayer.Displayed.Count; j++)
+                        for (int j = 0; j < players[i].Displayed.Count; j++)
                         {
-                            if (currentPlayer.Displayed[j].Name.Equals(temp))
+                            if (players[i].Displayed[j].Name.Equals(temp))
                             {
                                 cardFound = true;
-                                theCard = currentPlayer.Displayed[j];
+                                theCard = players[i].Displayed[j];
+                                players[i].RemoveFromDisplayed(j);
                             }
                         }
                         //if such a card exist, exit the loop
@@ -401,16 +581,16 @@ namespace Jam2
                     else if(input == "2")
                     {
                         //Let player choose card in hand
-                        Console.WriteLine("Which card do you want to give?");
+                        Console.WriteLine("\r\n" + "Which card do you want to give?");
                         //Get answer from player
                         string temp = Console.ReadLine();
                         //find card with name correspond to user input
-                        for (int j = 0; j < currentPlayer.Hand.Count; j++)
+                        for (int j = 0; j < players[i].Hand.Count; j++)
                         {
-                            if (currentPlayer.Hand[j].Name.Equals(temp))
+                            if (players[i].Hand[j].Name.Equals(temp))
                             {
                                 cardFound = true;
-                                theCard = currentPlayer.Hand[j];
+                                theCard = players[i].Hand[j];
                             }
                         }
                         //if such a card exist, exit the loop
@@ -435,30 +615,55 @@ namespace Jam2
                 while(!playerFound)
                 {
                     //let player select target to give
-                    Console.WriteLine("Which player do you want to give this card?" + "\r\n"
-                        + "1. Player to the left" + "\r\n"
-                        + "2. Player to the right" + "\r\n"
-                        + "3. Player to the opposite"
+                    Console.WriteLine("\r\n" + "Which player do you want to give this card?" + "\r\n"
+                        + "1. Player to the left (" + players[left].PlayerID + "with a displayed score of " + players[left].DisplayedScore + ")" + "\r\n"
+                        + "2. Player to the right (" + players[right].PlayerID + "with a displayed score of " + players[right].DisplayedScore + ")" + "\r\n"
+                        + "3. Player to the opposite (" + players[opposite].PlayerID + "with a displayed score of " + players[opposite].DisplayedScore + ")"
                         );
                     //get player answer
                     input = Console.ReadLine();
                     if(input == "1")
                     {
                         //get left player
-                        target = left;
-                        break;
+                        if(!players[left].Given)
+                        {
+                            target = left;
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Your selection is invalid, please try again");
+                            continue;
+                        }
+
                     }
                     else if(input == "2")
                     {
                         //get right player
-                        target = right;
-                        break;
+                        if (!players[right].Given)
+                        {
+                            target = right;
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Your selection is invalid, please try again");
+                            continue;
+                        }
                     }
                     else if(input == "3")
                     {
                         //get opposite player
-                        target = opposite;
-                        break;
+                        if (!players[opposite].Given)
+                        {
+                            target = opposite;
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Your selection is invalid, please try again");
+                            continue;
+                        }
                     }
                     else
                     {
@@ -466,14 +671,56 @@ namespace Jam2
                         continue;
                     }
                 }
-                    GiveCardTo(theCard, target);
+                GiveCardTo(theCard, target);
+                if (players[i].Displayed.Count == 0)
+                {
+                    cardFound = false;
+                    while(!cardFound)
+                    {
+                        Console.WriteLine("\r\n" + "Your displayed card area is currently empty, please choose another card from hand to display");
+                        Console.WriteLine("Cards in your hands are : ");
+                        for (int j = 0; j < players[i].Hand.Count; j++)
+                        {
+                            Console.WriteLine(players[i].Hand[j].Name);
+                        }
+                        input = Console.ReadLine();
+                        if(input != null)
+                        {
+                            for(int j = 0; j < players[i].Hand.Count; i++)
+                            {
+                                if(players[i].Hand[j].Name.Equals(input))
+                                {
+                                    players[i].AddToDisplayedFromHand(j);
+                                    cardFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                       
+                    }
+                }
+                players[i].UpdateScore();
+                Console.WriteLine("Your current score is : " + players[i].TotalScore);
+                Console.WriteLine("You are done with your turn, please give seat for next player" + "\r\n" +
+                    "Press Any Key to Continue");
+                Console.ReadLine();
+                Console.Clear();
             }
         }
 
         //Give a card from hand to the target player
-        public void GiveCardTo(Card theCard, Player target)
+        public void GiveCardTo(TreasureCard theCard, int target)
         {
-
+            if(theCard.FaceUp)
+            {
+                players[target].AddToDisplayed(theCard);
+                players[target].Given = true;
+            }
+            else
+            {
+                players[target].AddToHand(theCard);
+                players[target].Given = true;
+            }
         }
 
     }
