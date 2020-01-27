@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lena\\source\\repos\\Jam2\\Jam2\\Jam2.csproj": {}
+    "C:\\Users\\Lena\\source\\Prototype\\Jam2\\Jam2\\Jam2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lena\\source\\repos\\Jam2\\Jam2\\Jam2.csproj": {
+    "C:\\Users\\Lena\\source\\Prototype\\Jam2\\Jam2\\Jam2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lena\\source\\repos\\Jam2\\Jam2\\Jam2.csproj",
+        "projectUniqueName": "C:\\Users\\Lena\\source\\Prototype\\Jam2\\Jam2\\Jam2.csproj",
         "projectName": "Jam2",
-        "projectPath": "C:\\Users\\Lena\\source\\repos\\Jam2\\Jam2\\Jam2.csproj",
+        "projectPath": "C:\\Users\\Lena\\source\\Prototype\\Jam2\\Jam2\\Jam2.csproj",
         "packagesPath": "C:\\Users\\Lena\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lena\\source\\repos\\Jam2\\Jam2\\obj\\",
+        "outputPath": "C:\\Users\\Lena\\source\\Prototype\\Jam2\\Jam2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

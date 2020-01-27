@@ -30,13 +30,13 @@ namespace Jam2
 
         enum DeckTypes //All types of deck
         {
-            Treasure,
-            TreasureAbandon,
-            Action,
-            ActioinAbandon,
-            Event,
-            EventAbandon,
-            King
+            Treasure, //value = 0, treasure deck
+            Action, //value = 1, action deck
+            Event, //value = 2, event cards
+            TreasureAbandon, //value = 3, abandoned cards from treasure deck
+            ActionAbandon, //value = 4, abandoned cards from action deck
+            EventAbandon, //value = 5, abandoned cards from event deck
+            King //the king card
         }
 
         List<Player> players = new List<Player>(); //A list that holds all the players in the game

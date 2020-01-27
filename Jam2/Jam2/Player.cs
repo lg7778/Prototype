@@ -110,6 +110,7 @@ namespace Jam2
             }
         }
 
+        //constructor
         public Player(string ID)
         {
             playerID = ID;
