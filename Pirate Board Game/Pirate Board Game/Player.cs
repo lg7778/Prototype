@@ -147,10 +147,10 @@ namespace Jam2
         //Display a card from player's hand
         public void AddToDisplayedFromHand(int index)
         {
+            //flip the card
+            hand[index].FaceUp = true;
             //Add the card to displayed list
             displayed.Add(hand[index]);
-            //flip the card
-            displayed[displayed.Count - 1].FaceUp =  true;
             //Remove card from hand list
             hand.RemoveAt(index);
         }

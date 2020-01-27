@@ -196,7 +196,7 @@ namespace Jam2
                 {
                     player.UpdateScore();
                     Console.WriteLine("\r\n" + player.PlayerID + " currently displayed : ");
-                    foreach(TreasureCard card in player.Hand)
+                    foreach(TreasureCard card in player.Displayed)
                     {
                         Console.WriteLine(card.Name);
                     }
@@ -540,6 +540,16 @@ namespace Jam2
 
                 Console.WriteLine("Your current score is : " + players[i].TotalScore);
 
+                if(players[left].Given && players[right].Given && players[opposite].Given)
+                {
+                    Console.WriteLine("All the players have been given cards this round, so you can't give any card");
+                    Console.WriteLine("Your current score is : " + players[i].TotalScore);
+                    Console.WriteLine("You are done with your turn, please give seat for next player" + "\r\n" +
+                        "Press Any Key to Continue");
+                    Console.ReadLine();
+                    Console.Clear();
+                    continue;
+                }
                 //look for card to give
                 while(!cardFound)
                 {
@@ -616,9 +626,9 @@ namespace Jam2
                 {
                     //let player select target to give
                     Console.WriteLine("\r\n" + "Which player do you want to give this card?" + "\r\n"
-                        + "1. Player to the left (" + players[left].PlayerID + "with a displayed score of " + players[left].DisplayedScore + ")" + "\r\n"
-                        + "2. Player to the right (" + players[right].PlayerID + "with a displayed score of " + players[right].DisplayedScore + ")" + "\r\n"
-                        + "3. Player to the opposite (" + players[opposite].PlayerID + "with a displayed score of " + players[opposite].DisplayedScore + ")"
+                        + "1. Player to the left (" + players[left].PlayerID + " with a displayed score of " + players[left].DisplayedScore + ")" + "\r\n"
+                        + "2. Player to the right (" + players[right].PlayerID + " with a displayed score of " + players[right].DisplayedScore + ")" + "\r\n"
+                        + "3. Player to the opposite (" + players[opposite].PlayerID + " with a displayed score of " + players[opposite].DisplayedScore + ")"
                         );
                     //get player answer
                     input = Console.ReadLine();
@@ -711,16 +721,9 @@ namespace Jam2
         //Give a card from hand to the target player
         public void GiveCardTo(TreasureCard theCard, int target)
         {
-            if(theCard.FaceUp)
-            {
-                players[target].AddToDisplayed(theCard);
-                players[target].Given = true;
-            }
-            else
-            {
-                players[target].AddToHand(theCard);
-                players[target].Given = true;
-            }
+            theCard.FaceUp = true;
+            players[target].AddToDisplayed(theCard);
+            players[target].Given = true;
         }
 
     }
